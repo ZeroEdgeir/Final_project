@@ -27,10 +27,11 @@ import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Display;
 import android.view.Menu;
 
-public class Main extends BaseGameActivity implements IOnSceneTouchListener {
+public class StartUp extends BaseGameActivity {
 
 	private static final int CAMERA_WIDTH = 320;
 	private static final int CAMERA_HEIGHT = 480;
@@ -68,14 +69,14 @@ public class Main extends BaseGameActivity implements IOnSceneTouchListener {
 
 	@Override
 	public void onLoadComplete() {
-		// TODO Auto-generated method stub
-		
+		mHandler.postDelayed(mLaunchTask, 3000);
 	}
+	
+	private Runnable mLaunchTask = new Runnable() {
+		public void run() {
+			Intent myIntent = new Intent(StartActivity.this, MainMenu.class);
+			StartActivity.this.startActivity(myIntent);
+		}
+	};
 
-	@Override
-	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-    
 }
