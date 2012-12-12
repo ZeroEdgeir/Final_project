@@ -1,3 +1,12 @@
+/*
+ * Author: Randy Woolner
+ * Date: 10/12/2012
+ * File: MainMenu.java
+ * File Description: Creates and controls the main menu
+ * Program: Star Pilot
+ * Program Description: A simple Android game of dodging enemy space ships
+ */
+
 package com.zeroedgeir.final_project;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -27,7 +36,7 @@ import android.app.Activity;
 import android.view.Menu;
 import android.widget.Toast;
 
-public class MainMenu extends BaseGameActivity  implements IOnSceneTouchListener {
+public class MainMenu extends BaseGameActivity  implements IOnMenuItemClickListener {
 
 	private static final int CAMERA_WIDTH = 320;
 	private static final int CAMERA_HEIGHT = 480;
@@ -86,10 +95,10 @@ public class MainMenu extends BaseGameActivity  implements IOnSceneTouchListener
 		
 		this.mMainScene = new Scene(1);
 		final Sprite menuBack = new Sprite(centerX, centerY, this.mMenuTextureRegion);
-		final Sprite menuPlay = new Sprite(centerX, 142, this.mMenuPlayTextureRegion);
-		final Sprite menuAbout = new Sprite(centerX, 232, this.mMenuAboutTextureRegion);
-		final Sprite menuHelp = new Sprite(centerX, 322, this.mMenuHelpTextureRegion);
-		final Sprite menuQuit = new Sprite(centerX, 412, this.mMenuQuitTextureRegion);
+		final Sprite menuPlay = new Sprite(centerX, 162, this.mMenuPlayTextureRegion);
+		final Sprite menuAbout = new Sprite(centerX, 272, this.mMenuAboutTextureRegion);
+		final Sprite menuHelp = new Sprite(centerX, 342, this.mMenuHelpTextureRegion);
+		final Sprite menuQuit = new Sprite(centerX, 432, this.mMenuQuitTextureRegion);
 		mMainScene.getLastChild().attachChild(menuBack);
 		mMainScene.setChildScene(mStaticMenuScene);
 		
@@ -111,7 +120,7 @@ public class MainMenu extends BaseGameActivity  implements IOnSceneTouchListener
 		this.mStaticMenuScene.addMenuItem(quitMenuItem);
 		this.mStaticMenuScene.buildAnimations();
 		this.mStaticMenuScene.setBackgroundEnabled(false);
-		this.mStaticMenuScene.setOnMenuItemClickListener((IOnMenuItemClickListener) this);
+		this.mStaticMenuScene.setOnMenuItemClickListener(this);
 	}
 	
 	public boolean onMenuItemClicked(final MenuScene pMenuScene, final IMenuItem pMenuItem, final float pMenuItemLocalX, final float pMenuItemLocalY) {
@@ -137,11 +146,6 @@ public class MainMenu extends BaseGameActivity  implements IOnSceneTouchListener
 	public void onLoadComplete() {
 		// TODO Auto-generated method stub
 		
-	}
-	@Override
-	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

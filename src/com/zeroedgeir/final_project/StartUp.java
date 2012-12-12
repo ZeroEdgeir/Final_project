@@ -1,8 +1,10 @@
 /*
  * Author: Randy Woolner
  * Date: 10/12/2012
+ * File: StartUp.java
+ * File Description: Loads the initial splash screen of the program
  * Program: Star Pilot
- * Description: A simple Android game of dodging enemy space ships
+ * Program Description: A simple Android game of dodging enemy space ships
  */
 
 package com.zeroedgeir.final_project;
@@ -26,6 +28,7 @@ import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Display;
@@ -39,9 +42,11 @@ public class StartUp extends BaseGameActivity {
     private Camera mCamera;
     private Texture mTexture;
     private TextureRegion mSplashTextureRegion;
+    private Handler mHandler;
 
 	@Override
 	public Engine onLoadEngine() {
+		mHandler = new Handler(); 
 		this.mCamera = new Camera (0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		return new Engine(new EngineOptions(true, ScreenOrientation.PORTRAIT, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera));
 	}
@@ -69,13 +74,14 @@ public class StartUp extends BaseGameActivity {
 
 	@Override
 	public void onLoadComplete() {
-		mHandler.postDelayed(mLaunchTask, 3000);
+		mHandler.postDelayed(mLaunchTask,5000);
 	}
 	
 	private Runnable mLaunchTask = new Runnable() {
 		public void run() {
-			Intent myIntent = new Intent(StartActivity.this, MainMenu.class);
-			StartActivity.this.startActivity(myIntent);
+			Intent myIntent = new Intent(StartUp.this, MainMenu.class);
+			StartUp.this.startActivity(myIntent);
+			StartUp.this.finish();
 		}
 	};
 
