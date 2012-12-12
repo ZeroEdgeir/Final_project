@@ -30,6 +30,10 @@
             android:name="com.zeroedgeir.final_project.MainMenu"
             android:label="@string/title_activity_main_menu" >
         </activity>
+        <activity
+            android:name="com.zeroedgeir.final_project.About"
+            android:label="@string/title_activity_about" >
+        </activity>
     </application>
 
 </manifest>

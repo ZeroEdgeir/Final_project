@@ -17,23 +17,20 @@ import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
-import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
 import org.anddev.andengine.entity.scene.menu.MenuScene;
 import org.anddev.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
 import org.anddev.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.util.FPSLogger;
-import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
+import android.content.Intent;
+import android.os.Handler;
 import android.widget.Toast;
 
 public class MainMenu extends BaseGameActivity  implements IOnMenuItemClickListener {
@@ -54,7 +51,8 @@ public class MainMenu extends BaseGameActivity  implements IOnMenuItemClickListe
     private TextureRegion mMenuQuitTextureRegion;
 	private Scene mMainScene;
 	private MenuScene mStaticMenuScene;
-    
+    private Handler mHandler;
+	
     protected static final int MENU_PLAY = 0;
 	protected static final int MENU_ABOUT = 1;
 	protected static final int MENU_HELP = 2;
@@ -62,6 +60,7 @@ public class MainMenu extends BaseGameActivity  implements IOnMenuItemClickListe
 	
 	@Override
 	public Engine onLoadEngine() {
+		mHandler = new Handler();
 		this.mCamera = new Camera (0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		return new Engine(new EngineOptions(true, ScreenOrientation.PORTRAIT, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera));
 	}
@@ -95,10 +94,6 @@ public class MainMenu extends BaseGameActivity  implements IOnMenuItemClickListe
 		
 		this.mMainScene = new Scene(1);
 		final Sprite menuBack = new Sprite(centerX, centerY, this.mMenuTextureRegion);
-		final Sprite menuPlay = new Sprite(centerX, 162, this.mMenuPlayTextureRegion);
-		final Sprite menuAbout = new Sprite(centerX, 272, this.mMenuAboutTextureRegion);
-		final Sprite menuHelp = new Sprite(centerX, 342, this.mMenuHelpTextureRegion);
-		final Sprite menuQuit = new Sprite(centerX, 432, this.mMenuQuitTextureRegion);
 		mMainScene.getLastChild().attachChild(menuBack);
 		mMainScene.setChildScene(mStaticMenuScene);
 		
@@ -130,6 +125,7 @@ public class MainMenu extends BaseGameActivity  implements IOnMenuItemClickListe
 			return true;
 		case MENU_ABOUT:
 			Toast.makeText(MainMenu.this,  "About Selected", Toast.LENGTH_SHORT).show();
+			mHandler.postDelayed(mLaunchAbout,1000);
 			return true;
 		case MENU_HELP:
 			Toast.makeText(MainMenu.this,  "Help Selected", Toast.LENGTH_SHORT).show();
@@ -141,6 +137,13 @@ public class MainMenu extends BaseGameActivity  implements IOnMenuItemClickListe
 			return false;
 		}
 	}
+	
+	private Runnable mLaunchAbout = new Runnable() {
+        public void run() {
+    		Intent myIntent = new Intent(MainMenu.this, About.class);
+    		MainMenu.this.startActivity(myIntent);
+        }
+     };
 	
 	@Override
 	public void onLoadComplete() {
