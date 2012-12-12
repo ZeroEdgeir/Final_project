@@ -1,3 +1,12 @@
+/*
+ * Author: Randy Woolner
+ * Date: 12/12/2012
+ * File: About.java
+ * File Description: Displays information regarding creation and version of program.
+ * Program: Star Pilot
+ * Program Description: A simple Android game of dodging enemy space ships
+ */
+
 package com.zeroedgeir.final_project;
 
 import org.anddev.andengine.engine.Engine;

@@ -34,6 +34,10 @@
             android:name="com.zeroedgeir.final_project.About"
             android:label="@string/title_activity_about" >
         </activity>
+        <activity
+            android:name="com.zeroedgeir.final_project.Game"
+            android:label="@string/title_activity_game" >
+        </activity>
     </application>
 
 </manifest>

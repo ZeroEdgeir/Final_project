@@ -1,6 +1,6 @@
 /*
  * Author: Randy Woolner
- * Date: 10/12/2012
+ * Date: 11/12/2012
  * File: MainMenu.java
  * File Description: Creates and controls the main menu
  * Program: Star Pilot
@@ -122,10 +122,11 @@ public class MainMenu extends BaseGameActivity  implements IOnMenuItemClickListe
 		switch (pMenuItem.getID()){
 		case MENU_PLAY:
 			Toast.makeText(MainMenu.this,  "Play Selected", Toast.LENGTH_SHORT).show();
+			mHandler.postDelayed(mLaunchPlay, 1000);
 			return true;
 		case MENU_ABOUT:
 			Toast.makeText(MainMenu.this,  "About Selected", Toast.LENGTH_SHORT).show();
-			mHandler.postDelayed(mLaunchAbout,1000);
+			mHandler.postDelayed(mLaunchAbout, 1000);
 			return true;
 		case MENU_HELP:
 			Toast.makeText(MainMenu.this,  "Help Selected", Toast.LENGTH_SHORT).show();
@@ -141,6 +142,13 @@ public class MainMenu extends BaseGameActivity  implements IOnMenuItemClickListe
 	private Runnable mLaunchAbout = new Runnable() {
         public void run() {
     		Intent myIntent = new Intent(MainMenu.this, About.class);
+    		MainMenu.this.startActivity(myIntent);
+        }
+     };
+     
+    private Runnable mLaunchPlay = new Runnable() {
+        public void run() {
+    		Intent myIntent = new Intent(MainMenu.this, Game.class);
     		MainMenu.this.startActivity(myIntent);
         }
      };
