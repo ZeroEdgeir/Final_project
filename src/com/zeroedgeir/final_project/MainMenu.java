@@ -130,6 +130,7 @@ public class MainMenu extends BaseGameActivity  implements IOnMenuItemClickListe
 			return true;
 		case MENU_HELP:
 			Toast.makeText(MainMenu.this,  "Help Selected", Toast.LENGTH_SHORT).show();
+			mHandler.postDelayed(mLaunchHelp, 1000);
 			return true;
 		case MENU_QUIT:
 			this.finish();
@@ -144,11 +145,18 @@ public class MainMenu extends BaseGameActivity  implements IOnMenuItemClickListe
     		Intent myIntent = new Intent(MainMenu.this, About.class);
     		MainMenu.this.startActivity(myIntent);
         }
-     };
+    };
      
     private Runnable mLaunchPlay = new Runnable() {
         public void run() {
     		Intent myIntent = new Intent(MainMenu.this, Game.class);
+    		MainMenu.this.startActivity(myIntent);
+        }
+    };
+     
+    private Runnable mLaunchHelp = new Runnable() {
+        public void run() {
+        	Intent myIntent = new Intent(MainMenu.this, Help.class);
     		MainMenu.this.startActivity(myIntent);
         }
      };

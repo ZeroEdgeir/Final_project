@@ -1,8 +1,8 @@
 /*
  * Author: Randy Woolner
- * Date: 10/12/2012
- * File: StartUp.java
- * File Description: Loads the initial splash screen of the program
+ * Date: 13/12/2012
+ * File: Help.java
+ * File Description: Displays information of how to play the game.
  * Program: Star Pilot
  * Program Description: A simple Android game of dodging enemy space ships
  */
@@ -23,56 +23,48 @@ import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
-import android.os.Handler;
-import android.content.Intent;
-
-public class StartUp extends BaseGameActivity {
+public class Help extends BaseGameActivity {
 
 	private static final int CAMERA_WIDTH = 320;
 	private static final int CAMERA_HEIGHT = 480;
 	
     private Camera mCamera;
-    private Texture mTexture;
-    private TextureRegion mSplashTextureRegion;
-    private Handler mHandler;
-
+    private Texture mHelpTexture;
+    private TextureRegion mHelpTextureRegion;
+    private Scene mHelpScene;
+	
 	@Override
 	public Engine onLoadEngine() {
-		mHandler = new Handler(); 
 		this.mCamera = new Camera (0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		return new Engine(new EngineOptions(true, ScreenOrientation.PORTRAIT, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera));
 	}
 
 	@Override
 	public void onLoadResources() {
-		this.mTexture = new Texture(512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		this.mSplashTextureRegion = TextureRegionFactory.createFromAsset(this.mTexture, this, "gfx/Splashscreen.png", 0, 0);
-		this.mEngine.getTextureManager().loadTexture(this.mTexture);
+		this.mHelpTexture = new Texture(512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		this.mHelpTextureRegion = TextureRegionFactory.createFromAsset(this.mHelpTexture, this, "gfx/HelpScreen.png", 0, 0);
+		this.mEngine.getTextureManager().loadTexture(this.mHelpTexture);
 		
 	}
 
 	@Override
 	public Scene onLoadScene() {
 		this.mEngine.registerUpdateHandler(new FPSLogger());
-		final Scene scene = new Scene(1);
-		final int centerX = (CAMERA_WIDTH - this.mSplashTextureRegion.getWidth()) / 2;
-		final int centerY = (CAMERA_HEIGHT - this.mSplashTextureRegion.getHeight()) / 2;
-		final Sprite splash = new Sprite(centerX, centerY, this.mSplashTextureRegion);
-		scene.getLastChild().attachChild(splash);
-		return scene;
+		
+		final int centerX = (CAMERA_WIDTH - this.mHelpTextureRegion.getWidth()) / 2;
+		final int centerY = (CAMERA_HEIGHT - this.mHelpTextureRegion.getHeight()) / 2;
+		
+		this.mHelpScene = new Scene(1);
+		final Sprite menuBack = new Sprite(centerX, centerY, this.mHelpTextureRegion);
+		mHelpScene.getLastChild().attachChild(menuBack);
+		
+		return this.mHelpScene;
 	}
 
 	@Override
 	public void onLoadComplete() {
-		mHandler.postDelayed(mLaunchTask, 5000);
+		// TODO Auto-generated method stub
+		
 	}
-	
-	private Runnable mLaunchTask = new Runnable() {
-		public void run() {
-			Intent myIntent = new Intent(StartUp.this, MainMenu.class);
-			StartUp.this.startActivity(myIntent);
-			StartUp.this.finish();
-		}
-	};
 
 }

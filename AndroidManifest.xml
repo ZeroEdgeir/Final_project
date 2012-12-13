@@ -38,6 +38,14 @@
             android:name="com.zeroedgeir.final_project.Game"
             android:label="@string/title_activity_game" >
         </activity>
+        <activity
+            android:name="com.zeroedgeir.final_project.GameOver"
+            android:label="@string/title_activity_game_over" >
+        </activity>
+        <activity
+            android:name="com.zeroedgeir.final_project.Help"
+            android:label="@string/title_activity_help" >
+        </activity>
     </application>
 
 </manifest>
